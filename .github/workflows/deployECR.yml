@@ -13,7 +13,8 @@ jobs:
    
     env:
       ECR_REPOSITORY: assignment1-repo
-      IMAGE_TAG: v0.1
+      APP_IMAGE_TAG: APPv0.1
+      DB_IMAGE_TAG: DBv0.1
 
    
     steps:
@@ -38,13 +39,13 @@ jobs:
         cd clo835_fall2022_assignment1/
         ls -ltra
         # Docker build
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$APP_IMAGE_TAG .
         # Unit test
-        docker run -d -p 80:8080 --name my-app $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        docker run -d -p 80:8080 --name my-app $ECR_REGISTRY/$ECR_REPOSITORY:$APP_IMAGE_TAG
         docker ps
         echo "Pause for 10 seconds to let container start"
         sleep 10
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$APP_IMAGE_TAG
         
     - name: Build, test, tag, and push image to Amazon ECR
      
@@ -55,10 +56,10 @@ jobs:
         cd clo835_fall2022_assignment1/
         ls -ltra
         # Docker build
-        docker build -t -f Dockerfile_mysql $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+        docker build -t -f Dockerfile_mysql $ECR_REGISTRY/$ECR_REPOSITORY:$DB_IMAGE_TAG .
         # Unit test
-        docker run -d --name my-db $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        docker run -d --name my-db $ECR_REGISTRY/$ECR_REPOSITORY:$DB_IMAGE_TAG
         docker ps
         echo "Pause for 10 seconds to let container start"
         sleep 10
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$DB_IMAGE_TAG
