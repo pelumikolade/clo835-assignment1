@@ -14,7 +14,7 @@ jobs:
     env:
       ECR_REPOSITORY: assignment1-repo
       APP_IMAGE_TAG: APPv0.2
-      DB_IMAGE_TAG: DBv0.1
+      DB_IMAGE_TAG: DBv0.2
 
    
     steps:
