@@ -26,4 +26,12 @@ deploy the db
 This assignment is in 3 Stages and below are the steps to deploy the assignment
 
 1. Create the infrastructure (EC2 and ECR) using terraform from the terraform_code folder
-2. Configure github action to have access to the 
+2. Configure github action to have access to the AWS accounnt in the secrets option of the repository
+3. Run github action on Deploy_Images_to_ECR.yaml file - this will deploy the images to the ECR repository on AWS
+4. login to the created EC2 instance using terraform and install updates and docker package
+5. Configure AWS cli on the environement and add the session token to the AWS credentials file
+6. login to the ECR repository
+7. Pull the DB and App images respectively
+8. Run the DB container
+9. Run the App container
+
