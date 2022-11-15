@@ -12,9 +12,10 @@ jobs:
     runs-on: ubuntu-latest
    
     env:
-      ECR_REPOSITORY: assignment1-repo
-      APP_IMAGE_TAG: APPv0.2
-      DB_IMAGE_TAG: DBv0.2
+      APP_REPOSITORY: myapp
+      DB_REPOSITORY: mydb
+      APP_IMAGE_TAG: 0.1
+      DB_IMAGE_TAG: 0.2
 
    
     steps:
@@ -41,7 +42,7 @@ jobs:
         # Docker build
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$APP_IMAGE_TAG .
         # Unit test
-        docker run -d -p 80:8080 --name my-app $ECR_REGISTRY/$ECR_REPOSITORY:$APP_IMAGE_TAG
+        docker run -d -p 80:8080 --name my-app $ECR_REGISTRY/$APP_REPOSITORY:$APP_IMAGE_TAG
         docker ps
         echo "Pause for 10 seconds to let container start"
         sleep 10
@@ -58,7 +59,7 @@ jobs:
         # Docker build
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$DB_IMAGE_TAG -f Dockerfile_mysql .
         # Unit test
-        docker run -d --name my-db $ECR_REGISTRY/$ECR_REPOSITORY:$DB_IMAGE_TAG
+        docker run -d --name my-db $ECR_REGISTRY/$DB_REPOSITORY:$DB_IMAGE_TAG
         docker ps
         echo "Pause for 10 seconds to let container start"
         sleep 10
