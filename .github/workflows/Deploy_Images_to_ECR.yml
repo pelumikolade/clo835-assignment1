@@ -14,8 +14,8 @@ jobs:
     env:
       APP_REPOSITORY: myapp
       DB_REPOSITORY: mydb
-      APP_IMAGE_TAG: v0.1
-      DB_IMAGE_TAG: v0.2
+      APP_IMAGE_TAG: 1.0
+      DB_IMAGE_TAG: 1.0
 
    
     steps:
@@ -57,7 +57,7 @@ jobs:
         cd clo835_fall2022_assignment1/
         ls -ltra
         # Docker build
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$DB_IMAGE_TAG -f Dockerfile_mysql .
+        docker build -t $ECR_REGISTRY/$DB_REPOSITORY:$DB_IMAGE_TAG -f Dockerfile_mysql .
         # Unit test
         docker run -d --name mydb $ECR_REGISTRY/$DB_REPOSITORY:$DB_IMAGE_TAG
         docker ps
