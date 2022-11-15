@@ -40,13 +40,13 @@ jobs:
         cd clo835_fall2022_assignment1/
         ls -ltra
         # Docker build
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$APP_IMAGE_TAG .
+        docker build -t $ECR_REGISTRY/$APP_REPOSITORY:$APP_IMAGE_TAG .
         # Unit test
-        docker run -d -p 80:8080 --name my-app $ECR_REGISTRY/$APP_REPOSITORY:$APP_IMAGE_TAG
+        docker run -d -p 80:8080 --name myapp $ECR_REGISTRY/$APP_REPOSITORY:$APP_IMAGE_TAG
         docker ps
         echo "Pause for 10 seconds to let container start"
         sleep 10
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$APP_IMAGE_TAG
+        docker push $ECR_REGISTRY/$APP_REPOSITORY:$APP_IMAGE_TAG
         
     - name: Build, test, tag, and push image to Amazon ECR
      
@@ -59,8 +59,8 @@ jobs:
         # Docker build
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$DB_IMAGE_TAG -f Dockerfile_mysql .
         # Unit test
-        docker run -d --name my-db $ECR_REGISTRY/$DB_REPOSITORY:$DB_IMAGE_TAG
+        docker run -d --name mydb $ECR_REGISTRY/$DB_REPOSITORY:$DB_IMAGE_TAG
         docker ps
         echo "Pause for 10 seconds to let container start"
         sleep 10
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$DB_IMAGE_TAG
+        docker push $ECR_REGISTRY/$DB_REPOSITORY:$DB_IMAGE_TAG
